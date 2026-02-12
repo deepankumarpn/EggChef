@@ -1,0 +1,55 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Egg Chef</string>
+    <string name="boiling_is_completed">Boiling is completed!</string>
+    <string name="time_00_00">00:00</string>
+    <string name="minus">-</string>
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
+    <string name="reset">Reset</string>
+    <string name="resume">Resume</string>
+    <string name="stop">Stop</string>
+    <string name="boiling_type">Boiling Type</string>
+    <string name="instructions">Instructions</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="click_to_view_instructions">Click to view instructions</string>
+    <string name="close">Close</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+
+    <!--Custom Boil Dialog-->
+    <string name="add_custom_boil_type">Add Custom Boil Type</string>
+    <string name="content_desc_add_custom_boil">Add custom boil type</string>
+    <string name="title_label">Title</string>
+    <string name="title_placeholder">e.g. My custom boil</string>
+    <string name="title_required_error">Title is required</string>
+    <string name="minutes_label">Minutes</string>
+    <string name="minutes_placeholder">e.g. 6</string>
+    <string name="minutes_valid_error">Enter a valid number greater than 0</string>
+    <string name="description_label">Description</string>
+    <string name="description_placeholder">Describe your boil type</string>
+    <string name="content_desc_delete">Delete %1$s</string>
+    <string name="content_desc_identifier">Identifier Screen</string>
+    <string name="overcooking_detected">%1$s \nOvercooking detected: -%2$s</string>
+    <string name="custom_boil_title_format">%1$s (%2$d minutes)</string>
+
+    <!--Default Boil Types-->
+    <string name="boil_title_dippy">Dippy solders (3 minutes)</string>
+    <string name="boil_desc_dippy">Soft-boiled eggs with runny yolks, perfect for dipping toast sticks. The whites are delicately set, allowing for easy dipping and mixing with the yolks.</string>
+    <string name="boil_title_runny">Runny yolks (6 minutes)</string>
+    <string name="boil_desc_runny">Eggs with barely set whites and runny yolks, challenging to peel but great for dishes like Caesar salad and avocado toast.</string>
+    <string name="boil_title_soft">Soft boiled (8 minutes)</string>
+    <string name="boil_desc_soft">Cooked for 8 minutes, these eggs have creamy yolks and just-set whites, ideal for salads, fish pie, and egg sandwiches.</string>
+    <string name="boil_title_hard">Hard boiled (10 minutes)</string>
+    <string name="boil_desc_hard">Boiled for 10 minutes, these eggs have firmer yolks and whites, suitable for salads but less creamy than soft-boiled eggs.</string>
+    <string name="boil_title_overcooked">Overcooked (12 minutes)</string>
+    <string name="boil_desc_overcooked">Boiled for 12 minutes or more, resulting in powdery yolks and rubbery whites, not preferred for their texture and taste.</string>
+
+    <!--Instructions-->
+    <string name="water_level" tools:ignore="StringEscaping"><b>Water level 3cm/1\"</b> – Fill the saucepan with enough water so it will cover the eggs by 3cm / 1\" or more.(Note 1)</string>
+    <string name="boil_first" tools:ignore="StringEscaping"><b>Boil first then add eggs</b> – Bring to a rapid boil over high heat. Using a slotted spoon, gently lower fridge-cold eggs into the water.(Note 2)</string>
+    <string name="lower_heat" tools:ignore="StringEscaping"><b>Lower heat</b> – Reduce the heat slightly to medium high – water should still be bubbling but not so much the eggs are being bashed around so roughly they crack. (Note 3)</string>
+    <string name="start_timer" tools:ignore="StringEscaping"><b>Start the timer</b> once all the eggs are in.\n<b>- Dippy soldiers:</b> 3 minutes (can\'t peel)\n<b>- Runny yolks:</b> 6 minutes\n<b>- Soft boiled:</b> 8 minutes\n<b>- Hard boiled:</b> 10 minutes\n<b>- Overcooked:</b> 12 minutes</string>
+    <string name="cool_10" tools:ignore="StringEscaping"><b>Cool 10 minutes</b> – Remove eggs using a slotted spoon into a large bowl or sink filled with plenty of cold tap water to cool the eggs. (Ice – Note 4) Cool 10 minutes.</string>
+    <string name="peel_from" tools:ignore="StringEscaping"><b>Peel from base in water</b> – Crack the base of the shell by tapping it on the counter, then peel under water from the base (it\'s easier).</string>
+    <string name="strong_hard" tools:ignore="StringEscaping"><b>Storing</b> – Hard boiled eggs can be stored in the fridge for up to 7 days (peeled or unpeeled). Freezing not recommended (whites go weird).</string>
+</resources>
