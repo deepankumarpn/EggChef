@@ -337,13 +337,13 @@ ver_deepankumarpn_1.0.13_bump
 **Commit message format:**
 
 ```
-Version bump: <oldVersion> → <newVersion> (<oldCode> → <newCode>)
+Version bump: <oldVersion> → <newVersion>
 ```
 
 **Example:**
 
 ```
-Version bump: 1.0.12 → 1.0.13 (1001201 → 1001301)
+Version bump: 1.0.12 → 1.0.13 
 ```
 
 ### Complete Version Bump Workflow
