@@ -346,43 +346,6 @@ Version bump: <oldVersion> → <newVersion>
 Version bump: 1.0.12 → 1.0.13 
 ```
 
-### Complete Version Bump Workflow
-
-**Step 1 — Checkout latest main**
-
-```bash
-git checkout main
-git pull origin main
-```
-
-**Step 2 — Create version bump branch**
-
-```bash
-git checkout -b ver_deepankumarpn_1.0.13_bump
-```
-
-**Step 3 — Update version in `versions.properties`**
-
-```properties
-major =1
-minor =0
-patch =13
-build =1
-```
-
-**Step 4 — Commit changes**
-
-```bash
-git add .
-git commit -m "Version bump: 1.0.12 → 1.0.13"
-```
-
-**Step 5 — Push branch**
-
-```bash
-git push origin ver_deepankumarpn_1.0.13_bump
-```
-
 ---
 
 ## 🔢 Version Code Strategy
