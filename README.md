@@ -167,12 +167,13 @@ type_githubusername_shortdescription
 
 ### Branch Prefix Types
 
-| Prefix | Type | Purpose |
-|--------|------|---------|
-| `fea` | Feature | New feature |
-| `bug` | Bugfix | Bug fix, crash fix, ANR fix |
+| Prefix | Type | Purpose                          |
+|--------|------|----------------------------------|
+| `fea` | Feature | New feature                      |
+| `bug` | Bugfix | Bug fix, crash fix, ANR fix      |
 | `ref` | Refactor | Code improvement or optimization |
-| `doc` | Documentation | Documentation update |
+| `doc` | Documentation | Documentation update             |
+| `ver` | Version | Version update                   |
 
 ### Examples
 
@@ -181,6 +182,7 @@ fea_deepankumarpn_add-timer-feature
 bug_johndoe_fix-crash-on-startup
 ref_alice_optimize-performance
 doc_mike_update-readme
+ver_deepankumarpn_1.0.13_bump
 ```
 
 ---
@@ -201,13 +203,25 @@ git checkout -b fea_yourusername_feature-name
 git commit -m "Add: new feature"
 ```
 
-**Step 4:** Push branch  
+**Step 4:** Push branch
 
 ```bash
 git push origin branch-name
 ```
 
-**Step 5:** Create Pull Request to `main` branch  
+**Step 5 (Mandatory):** Rebase with latest `main` before creating PR
+
+```bash
+git checkout main
+git pull origin main
+git checkout your_branch_name
+git rebase main
+git push --force-with-lease
+```
+
+> **Why Rebase?** Ensures clean linear history, no unnecessary merge commits, and no conflicts during merge.
+
+**Step 6:** Create Pull Request to `main` branch
 
 When creating your Pull Request, provide a **detailed description** including:
 
@@ -263,7 +277,161 @@ EggChef uses:
 
 - Clean commit history  
 - Easy tracking of changes  
-- Easy rollback  
+- Easy rollback
+
+---
+
+## 🔢 Version Bump Process
+
+### What is Version Bump?
+
+Version bump means increasing the version values in `versions.properties`.
+
+**Example:**
+
+| | `major` | `minor` | `patch` | `build` |
+|---|---|---|---|---|
+| Before release | `1` | `0` | `12` | `1` |
+| After release (bumped) | `1` | `0` | `13` | `1` |
+
+### Why Version Bump is Done AFTER Release
+
+Version bump is performed **after** the GitHub Release and Play Store Release, not before.
+
+**Example release cycle:**
+
+1. **Release current version**
+   - GitHub Release: `1.0.12`
+   - Play Store Release: `1.0.12`
+2. **Immediately bump version for next release**
+   - `main` branch `versions.properties` becomes: `patch = 13`
+
+**This ensures:**
+
+- `main` branch always contains the next upcoming version
+- No duplicate `versionCode` errors in Play Store
+- No release conflicts
+- Future features automatically use the correct version
+- Proper CI/CD readiness
+
+This is standard practice in professional production apps.
+
+### Version Bump Branch Strategy
+
+Version bump must **NEVER** be done directly in `main`. Always use a branch.
+
+**Branch naming format:**
+
+```
+ver_<githubusername>_<version>_bump
+```
+
+**Example:**
+
+```
+ver_deepankumarpn_1.0.13_bump
+```
+
+### Version Bump Commit Strategy
+
+**Commit message format:**
+
+```
+Version bump: <oldVersion> → <newVersion> (<oldCode> → <newCode>)
+```
+
+**Example:**
+
+```
+Version bump: 1.0.12 → 1.0.13 (1001201 → 1001301)
+```
+
+### Complete Version Bump Workflow
+
+**Step 1 — Checkout latest main**
+
+```bash
+git checkout main
+git pull origin main
+```
+
+**Step 2 — Create version bump branch**
+
+```bash
+git checkout -b ver_deepankumarpn_1.0.13_bump
+```
+
+**Step 3 — Update version in `versions.properties`**
+
+```properties
+major =1
+minor =0
+patch =13
+build =1
+```
+
+**Step 4 — Commit changes**
+
+```bash
+git add .
+git commit -m "Version bump: 1.0.12 → 1.0.13"
+```
+
+**Step 5 — Push branch**
+
+```bash
+git push origin ver_deepankumarpn_1.0.13_bump
+```
+
+---
+
+## 🔢 Version Code Strategy
+
+EggChef uses a structured `versionCode` format:
+
+| Major | Minor | Patch | Build |
+|-------|-------|-------|-------|
+| 1     | 00    | 13    | 01    |
+
+**Formula:**
+
+```
+versionCode = Major × 1000000 + Minor × 10000 + Patch × 100 + Build
+```
+
+**Example:** `versionCode = 1001301`
+
+**Benefits:**
+
+- Predictable versioning
+- Easy tracking
+- Supports future builds
+
+---
+
+## 🔄 Release Cycle Example
+
+| Step | Action | Value |
+|------|--------|-------|
+| 1 | Current version | `1.0.12` |
+| 2 | GitHub Release | `1.0.12` |
+| 3 | Play Store Release | `1.0.12` |
+| 4 | Create bump branch | `ver_deepankumarpn_1.0.13_bump` |
+| 5 | Update `versions.properties` | `patch = 13` |
+| 6 | Create PR and merge | Squash and Merge |
+| 7 | `main` branch ready | `1.0.13` — ready for next development |
+
+---
+
+## 📋 Summary of Mandatory Rules
+
+| MUST DO | NEVER DO |
+|---------|----------|
+| Version bump after every release | Direct commit to `main` |
+| Use version bump branch | Skip version bump after release |
+| Create Pull Request | Create PR without rebase |
+| Rebase branch before creating PR | Push version change directly to `main` |
+| Use squash merge | |
 
 ---
 
