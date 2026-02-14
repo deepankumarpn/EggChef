@@ -60,6 +60,6 @@ class AnalyticsRepositoryImpl @Inject constructor(
     }
 
     companion object {
-        private const val TAG = "FirebaseAnalytics"
+        private const val TAG = "AnalyticsLog"
     }
 }
