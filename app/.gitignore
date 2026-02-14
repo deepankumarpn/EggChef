@@ -1,1 +1,6 @@
 /build
+# Keystore files
+*.jks
+*.keystore
+# Build configuration variants
+/src/release/

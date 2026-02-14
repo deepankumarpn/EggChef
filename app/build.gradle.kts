@@ -69,6 +69,38 @@ android {
         compose = true
         buildConfig = true
     }
+
+    val (_, verName) = genVersion()
+    val buildNum = Properties().apply {
+        load(FileInputStream(file("../versions.properties")))
+    }["build"].toString().trim()
+
+    applicationVariants.all {
+        val appName = "eggchef_${verName}_${buildType.name}_RC${buildNum}"
+        outputs.all {
+            val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+            output.outputFileName = "$appName.apk"
+        }
+    }
+}
+
+tasks.whenTaskAdded {
+    if (name.startsWith("bundle")) {
+        val match = Regex("bundle(Debug|Release)").find(name) ?: return@whenTaskAdded
+        val buildType = match.groupValues[1].lowercase()
+        val (_, verName) = genVersion()
+        val buildNum = Properties().apply {
+            load(FileInputStream(file("../versions.properties")))
+        }["build"].toString().trim()
+        val appName = "eggchef_${verName}_${buildType}_RC${buildNum}"
+
+        doLast {
+            val aabDir = layout.buildDirectory.dir("outputs/bundle/$buildType").get().asFile
+            aabDir.listFiles()?.filter { it.extension == "aab" }?.forEach { file ->
+                file.renameTo(File(aabDir, "$appName.aab"))
+            }
+        }
+    }
 }
 
 dependencies {
