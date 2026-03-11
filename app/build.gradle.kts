@@ -39,9 +39,18 @@ android {
             keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD", "")
         }
     }
+    sourceSets {
+        getByName("debug"){
+            java.srcDirs("src/debug/java")
+        }
+        getByName("release"){
+            java.srcDirs("src/release/java")
+        }
+    }
 
     buildTypes {
         release {
+            manifestPlaceholders["appLabel"] = "EggChef"
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -50,7 +59,9 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
         debug {
+            manifestPlaceholders["appLabel"] = "EggChef(Debug)"
             applicationIdSuffix = ".debug"
+            versionNameSuffix="-debug"
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
