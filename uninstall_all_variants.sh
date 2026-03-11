@@ -3,6 +3,13 @@
 # Script to uninstall all variants of EggChef
 # Usage: ./uninstall_all_variants.sh
 
+# Add Android SDK platform-tools to PATH for adb
+if [ -d "$HOME/Library/Android/sdk/platform-tools" ]; then
+    export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
+elif [ -d "/Users/$USER/Library/Android/sdk/platform-tools" ]; then
+    export PATH="/Users/$USER/Library/Android/sdk/platform-tools:$PATH"
+fi
+
 PACKAGE_BASE="deepankumarpn.github.io.eggchef"
 
 echo "========================================="

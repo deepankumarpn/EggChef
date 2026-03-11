@@ -3,23 +3,44 @@
 # Script to uninstall and install all variants of EggChef
 # Usage: ./install_all_variants.sh
 
+# Add Android SDK platform-tools to PATH for adb
+if [ -d "$HOME/Library/Android/sdk/platform-tools" ]; then
+    export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
+elif [ -d "/Users/$USER/Library/Android/sdk/platform-tools" ]; then
+    export PATH="/Users/$USER/Library/Android/sdk/platform-tools:$PATH"
+fi
+
 PACKAGE_BASE="deepankumarpn.github.io.eggchef"
 
 # Auto-detect JAVA_HOME if not set
 if [ -z "$JAVA_HOME" ]; then
-    for java_path in \
-        "$PROGRAMFILES/Android/Android Studio/jbr" \
-        "/c/Program Files/Android/Android Studio/jbr" \
-        "$PROGRAMFILES/Android/Android Studio/jre" \
-        "/c/Program Files/Android/Android Studio/jre" \
-        /usr/lib/jvm/java-* \
-        /usr/local/opt/openjdk/libexec/openjdk.jdk/Contents/Home; do
-        if [ -d "$java_path" ]; then
-            export JAVA_HOME="$java_path"
+    # Try macOS java_home utility first
+    if command -v /usr/libexec/java_home &> /dev/null; then
+        JAVA_HOME_DETECTED=$(/usr/libexec/java_home 2>/dev/null)
+        if [ -n "$JAVA_HOME_DETECTED" ] && [ -d "$JAVA_HOME_DETECTED" ]; then
+            export JAVA_HOME="$JAVA_HOME_DETECTED"
             echo "Auto-detected JAVA_HOME: $JAVA_HOME"
-            break
         fi
-    done
+    fi
+    # If still not set, try common paths
+    if [ -z "$JAVA_HOME" ]; then
+        for java_path in \
+            "/Applications/Android Studio.app/Contents/jbr/Contents/Home" \
+            "/Applications/Android Studio.app/Contents/jre/Contents/Home" \
+            "$PROGRAMFILES/Android/Android Studio/jbr" \
+            "/c/Program Files/Android/Android Studio/jbr" \
+            "$PROGRAMFILES/Android/Android Studio/jre" \
+            "/c/Program Files/Android/Android Studio/jre" \
+            /usr/lib/jvm/java-* \
+            /usr/local/opt/openjdk/libexec/openjdk.jdk/Contents/Home \
+            /Library/Java/JavaVirtualMachines/*/Contents/Home; do
+            if [ -d "$java_path" ]; then
+                export JAVA_HOME="$java_path"
+                echo "Auto-detected JAVA_HOME: $JAVA_HOME"
+                break
+            fi
+        done
+    fi
     if [ -z "$JAVA_HOME" ]; then
         echo "ERROR: Could not find Java installation. Please set JAVA_HOME."
         exit 1
